@@ -56,7 +56,7 @@ namespace blitz_app_adblock {
                 "try {" +
                     "const fs = require('fs');" +
                     "const { FiltersEngine, Request} = require('./adblocker.umd.min.js');" +
-                    "const filters = fs.readFileSync(require.resolve('./easylist.txt'), 'utf-8') + fs.readFileSync(require.resolve('./easyprivacy.txt'), 'utf-8');" +
+                    "const filters = fs.readFileSync(require.resolve('./easylist.txt'), 'utf-8') + '\\n' + fs.readFileSync(require.resolve('./easyprivacy.txt'), 'utf-8') + '\\nadlightning.com\\ngoogleoptimize.com\\nindexww.com\\n';" + 
                     "const engine = FiltersEngine.parse(filters);" +
 
                     "windowInstance.webContents.session.webRequest.onBeforeRequest({ urls:['*://*/*']}, (details, callback) => {" +
