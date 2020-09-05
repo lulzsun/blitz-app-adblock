@@ -6,5 +6,7 @@ Using this is against Blitz.gg's terms of services. I am not responsible for wha
 
 ## Special thanks to
 [asar.net - .net asar archive extractor](https://github.com/Jiiks/asar.net)
+
 [Easylist - filters for ads/trackers](https://easylist.to/pages/about.html)
+
 [Cliqz' adblocker - js library for blocking ads/trackers](https://github.com/cliqz-oss/adblocker)
