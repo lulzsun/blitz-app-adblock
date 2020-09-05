@@ -10,11 +10,26 @@ namespace blitz_app_adblock {
         private static string appPath =>
             $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Programs\\Blitz\\resources";
         static void Main(string[] args) {
+            bool noupdate = false;
+            bool autoguest = false;
+
+            foreach (string arg in args) {
+                if(arg.ToLower() == "-noupdate") {
+                    Console.WriteLine("Disabling Blitz auto update...");
+                    noupdate = true;
+                }
+                if (arg.ToLower() == "-autoguest") {
+                    Console.WriteLine("Enabling auto sign in as guest...");
+                    autoguest = true;
+                }
+            }
+
             if (File.Exists($"{appPath}\\app.asar")) {
                 Console.WriteLine("app.asar found!");
 
                 try {
                     Console.WriteLine("Extracting...");
+                    CopyFolder($"{appPath}\\app.asar.unpacked\\", $"{appPath}\\app\\");
                     var asar = new AsarArchive($"{appPath}\\app.asar");
                     var extractor = new AsarExtractor();
                     extractor.ExtractAll(asar, $"{appPath}\\app\\", true);
@@ -33,6 +48,7 @@ namespace blitz_app_adblock {
 
                 // copy adblocker lib to src
                 File.WriteAllBytes($"{appPath}\\app\\src\\adblocker.umd.min.js", Encoding.UTF8.GetBytes(Resources.adblocker_umd_min));
+
                 // start writing our payload to createWindow.js
                 ModifyFileAtLine("session: true,", fileToPatch, 105);
                 ModifyFileAtLine(
@@ -57,7 +73,26 @@ namespace blitz_app_adblock {
                 "}"
 
                 , fileToPatch, 118);
-                // end file writes
+
+                // optional features
+                if (noupdate) ModifyFileAtLine("if (false) {", $"{appPath}\\app\\src\\index.js", 252);
+                if (autoguest) { 
+                    ModifyFileAtLine(
+
+                        "autoGuest();" +
+                        "function autoGuest() {" +
+                            "var buttons = document.getElementsByTagName('button');" +
+                            "for (var i = 0; i < buttons.length; i++) {" +
+                                "if (buttons[i].getAttribute('label') == 'Login As Guest') {" +
+                                    "buttons[i].click();" +
+                                    "return;" +
+                                "}" +
+                            "}" +
+                            "setTimeout(autoGuest, 1000);" +
+                        "}"
+
+                    , $"{appPath}\\app\\src\\preload.js", 18); 
+                }
 
                 Console.WriteLine();
                 Console.WriteLine();
@@ -69,11 +104,28 @@ namespace blitz_app_adblock {
             Console.ReadKey();
         }
 
-        public static void ModifyFileAtLine(string newText, string fileName, int line_to_edit) {
+        static void ModifyFileAtLine(string newText, string fileName, int line_to_edit) {
             string[] arrLine = File.ReadAllLines(fileName);
             arrLine[line_to_edit - 1] = newText;
             File.WriteAllLines(fileName, arrLine);
             Console.WriteLine(fileName + ">>> Writing to line " + line_to_edit + ": " + newText);
+        }
+
+        static public void CopyFolder(string sourceFolder, string destFolder) {
+            if (!Directory.Exists(destFolder))
+                Directory.CreateDirectory(destFolder);
+            string[] files = Directory.GetFiles(sourceFolder);
+            foreach (string file in files) {
+                string name = Path.GetFileName(file);
+                string dest = Path.Combine(destFolder, name);
+                File.Copy(file, dest, true);
+            }
+            string[] folders = Directory.GetDirectories(sourceFolder);
+            foreach (string folder in folders) {
+                string name = Path.GetFileName(folder);
+                string dest = Path.Combine(destFolder, name);
+                CopyFolder(folder, dest);
+            }
         }
     }
 }
