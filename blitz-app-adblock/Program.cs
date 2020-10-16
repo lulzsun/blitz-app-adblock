@@ -10,6 +10,9 @@ namespace blitz_app_adblock {
         private static string appPath =>
             $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Programs\\Blitz\\resources";
         static void Main(string[] args) {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             bool noupdate = false;
             bool autoguest = false;
 
@@ -44,6 +47,7 @@ namespace blitz_app_adblock {
                 new WebClient().DownloadFile("https://easylist.to/easylist/easyprivacy.txt", $"{appPath}\\app\\src\\easyprivacy.txt");
                 new WebClient().DownloadFile("https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt", $"{appPath}\\app\\src\\ublock-ads.txt");
                 new WebClient().DownloadFile("https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt", $"{appPath}\\app\\src\\ublock-privacy.txt");
+                new WebClient().DownloadFile("https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblock&showintro=1&mimetype=plaintext", $"{appPath}\\app\\src\\peter-lowe-list.txt");
 
                 Console.WriteLine("Patching...");
                 string fileToPatch = $"{appPath}\\app\\src\\createWindow.js";
@@ -62,7 +66,8 @@ namespace blitz_app_adblock {
                     "fs.readFileSync(require.resolve('./easylist.txt'), 'utf-8') + '\\n' + " +
                     "fs.readFileSync(require.resolve('./easyprivacy.txt'), 'utf-8') + '\\n' + " +
                     "fs.readFileSync(require.resolve('./ublock-ads.txt'), 'utf-8') + '\\n' + " +
-                    "fs.readFileSync(require.resolve('./ublock-privacy.txt'), 'utf-8') + '\\nadlightning.com\\ngoogleoptimize.com\\nindexww.com\\n';" + 
+                    "fs.readFileSync(require.resolve('./ublock-privacy.txt'), 'utf-8') + '\\n' + " +
+                    "fs.readFileSync(require.resolve('./peter-lowe-list.txt'), 'utf-8') + '\\ngoogleoptimize.com\\n';" + 
                     "const engine = FiltersEngine.parse(filters);" +
 
                     "windowInstance.webContents.session.webRequest.onBeforeRequest({ urls:['*://*/*']}, (details, callback) => {" +
