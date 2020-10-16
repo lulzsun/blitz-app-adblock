@@ -50,7 +50,7 @@ namespace blitz_app_adblock {
                 File.WriteAllBytes($"{appPath}\\app\\src\\adblocker.umd.min.js", Encoding.UTF8.GetBytes(Resources.adblocker_umd_min));
 
                 // start writing our payload to createWindow.js
-                ModifyFileAtLine("session: true,", fileToPatch, 105);
+                ModifyFileAtLine("session: true,", fileToPatch, 106);
                 ModifyFileAtLine(
 
                 "try {" +
@@ -72,10 +72,10 @@ namespace blitz_app_adblock {
                     "log.error(error);" +
                 "}"
 
-                , fileToPatch, 118);
+                , fileToPatch, 119);
 
                 // optional features
-                if (noupdate) ModifyFileAtLine("if (false) {", $"{appPath}\\app\\src\\index.js", 252);
+                if (noupdate) ModifyFileAtLine("if (false) {", $"{appPath}\\app\\src\\index.js", 277);
                 if (autoguest) { 
                     ModifyFileAtLine(
 
