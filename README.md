@@ -21,4 +21,6 @@ Using this is against Blitz.gg's terms of services. I am not responsible for wha
 
 [Easylist - filters for ads/trackers](https://easylist.to/pages/about.html)
 
+[uAssets - filters for ads/trackers](https://github.com/uBlockOrigin/uAssets)
+
 [Cliqz' adblocker - js library for blocking ads/trackers](https://github.com/cliqz-oss/adblocker)
