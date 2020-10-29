@@ -2,6 +2,8 @@
 
 A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop application.
 
+Download latest release [here](https://github.com/lulzsun/blitz-app-adblock/releases/latest).
+
 If Blitz.gg updates, rerun the program to reapply the patch. If there are issues after update, [submit a Github issue](https://github.com/lulzsun/blitz-app-adblock/issues/new) and attach the following log file: `%appdata%/Blitz/app.log`.
 
 You can uninstall the adblocker by uninstalling Blitz.
