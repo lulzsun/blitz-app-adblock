@@ -86,7 +86,7 @@ namespace blitz_app_adblock {
                 , fileToPatch, 119);
 
                 // optional features
-                if (noupdate) ModifyFileAtLine("if (false) {", $"{appPath}\\app\\src\\index.js", 277);
+                if (noupdate) ModifyFileAtLine("if (false) {", $"{appPath}\\app\\src\\index.js", 267);
                 if (autoguest) { 
                     ModifyFileAtLine(
 
