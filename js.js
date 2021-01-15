@@ -1,41 +1,29 @@
 var filterEngine = 
 `try {
     const fs = require('fs');
-    const {
-        FiltersEngine,
-        Request
-    } = require('./adblocker.umd.min.js');
+    const { FiltersEngine, Request } = require('./adblocker.umd.min.js');
     const filters =
-        fs.readFileSync(require.resolve('./easylist.txt'), 'utf-8') + '\\n'
-    fs.readFileSync(require.resolve('./easyprivacy.txt'), 'utf-8') + '\\n'
-    fs.readFileSync(require.resolve('./ublock-ads.txt'), 'utf-8') + '\\n'
-    fs.readFileSync(require.resolve('./ublock-privacy.txt'), 'utf-8') + '\\n'
-    fs.readFileSync(require.resolve('./peter-lowe-list.txt'), 'utf-8') + '\\ngoogleoptimize.com\\n';
+        fs.readFileSync(require.resolve('./easylist.txt'), 'utf-8') + '\\n' +
+        fs.readFileSync(require.resolve('./easyprivacy.txt'), 'utf-8') + '\\n' +
+        fs.readFileSync(require.resolve('./ublock-ads.txt'), 'utf-8') + '\\n' + 
+        fs.readFileSync(require.resolve('./ublock-privacy.txt'), 'utf-8') + '\\n' +
+        fs.readFileSync(require.resolve('./peter-lowe-list.txt'), 'utf-8') + '\\ngoogleoptimize.com\\n';
     const engine = FiltersEngine.parse(filters);
 
-    windowInstance.webContents.session.webRequest.onBeforeRequest({
-        urls: ['*://*/*']
-    }, (details, callback) => {
-        const {
-            match
-        } = engine.match(Request.fromRawDetails({
-            url: details.url
-        }));
+    windowInstance.webContents.session.webRequest.onBeforeRequest({ urls: ['*://*/*'] }, (details, callback) => {
+        const {match} = engine.match(Request.fromRawDetails({ url: details.url }));
         if (match == true) {
             log.info('BLOCKED:', details.url);
-            callback({
-                cancel: true
-            });
+            callback({cancel: true});
         } else {
-            callback({
-                cancel: false
-            });
+            callback({cancel: false});
         }
     });
 } catch (error) {
     log.error(error);
 }
 `
+filterEngine = compress(filterEngine);
 
 var autoGuest =
 `autoGuest();
@@ -51,6 +39,17 @@ function autoGuest() {
     setTimeout(autoGuest, 1000);
 }
 `
+autoGuest = compress(autoGuest);
+
+function compress(uncompressedJs) {
+    var compressedJs = '';
+    var stringArr = uncompressedJs.split('\n');
+
+    for (var i = 0; i < stringArr.length; i++) {
+        compressedJs += stringArr[i].trim();
+    }
+    return compressedJs;
+}
 
 module.exports = {
     filterEngine: filterEngine,

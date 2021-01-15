@@ -8,8 +8,8 @@
     "build": "pkg blitz-app-adblock.js --out-path .\\build\\ --targets win,macos"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lulzsun/blitz-app-adblock.git"
+    "type": "git",
+    "url": "https://github.com/lulzsun/blitz-app-adblock.git"
   },
   "author": "lulzsun",
   "license": "MIT",

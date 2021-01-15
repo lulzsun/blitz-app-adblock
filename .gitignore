@@ -1,3 +1,5 @@
+.vs
+
 # Logs
 logs
 *.log
@@ -34,8 +36,9 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
+# Compiled binary
+build/blitz-app-adblock-macos
+build/blitz-app-adblock-win
 
 # Dependency directories
 node_modules/
