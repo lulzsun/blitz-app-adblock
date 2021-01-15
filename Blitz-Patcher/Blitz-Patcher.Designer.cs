@@ -32,10 +32,10 @@ namespace Blitz_Patcher
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.MainTP = new System.Windows.Forms.TabPage();
             this.PatchBTN = new System.Windows.Forms.Button();
-            this.VersionLB = new System.Windows.Forms.Label();
             this.SettingsTP = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.BlitzSettingsTP = new System.Windows.Forms.TabPage();
+            this.SaveSettingsBTN = new System.Windows.Forms.Button();
             this.BlitzNoUpdateCB = new System.Windows.Forms.CheckBox();
             this.BlitzAutoGuestCB = new System.Windows.Forms.CheckBox();
             this.FiltersSettingsTP = new System.Windows.Forms.TabPage();
@@ -44,7 +44,8 @@ namespace Blitz_Patcher
             this.UBlockPrivacyCB = new System.Windows.Forms.CheckBox();
             this.EasyListCB = new System.Windows.Forms.CheckBox();
             this.EasyPrivacyCB = new System.Windows.Forms.CheckBox();
-            this.SaveSettingsBTN = new System.Windows.Forms.Button();
+            this.VersionLB = new System.Windows.Forms.Label();
+            this.UnpatchButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.MainTP.SuspendLayout();
             this.SettingsTP.SuspendLayout();
@@ -67,6 +68,7 @@ namespace Blitz_Patcher
             // 
             // MainTP
             // 
+            this.MainTP.Controls.Add(this.UnpatchButton);
             this.MainTP.Controls.Add(this.PatchBTN);
             this.MainTP.Location = new System.Drawing.Point(4, 22);
             this.MainTP.Name = "MainTP";
@@ -80,20 +82,11 @@ namespace Blitz_Patcher
             // 
             this.PatchBTN.Location = new System.Drawing.Point(10, 6);
             this.PatchBTN.Name = "PatchBTN";
-            this.PatchBTN.Size = new System.Drawing.Size(330, 126);
+            this.PatchBTN.Size = new System.Drawing.Size(330, 79);
             this.PatchBTN.TabIndex = 1;
             this.PatchBTN.Text = "Patch";
             this.PatchBTN.UseVisualStyleBackColor = true;
             this.PatchBTN.Click += new System.EventHandler(this.PatchBTN_Click);
-            // 
-            // VersionLB
-            // 
-            this.VersionLB.AutoSize = true;
-            this.VersionLB.Location = new System.Drawing.Point(315, 167);
-            this.VersionLB.Name = "VersionLB";
-            this.VersionLB.Size = new System.Drawing.Size(19, 13);
-            this.VersionLB.TabIndex = 0;
-            this.VersionLB.Text = "v1";
             // 
             // SettingsTP
             // 
@@ -127,6 +120,16 @@ namespace Blitz_Patcher
             this.BlitzSettingsTP.TabIndex = 0;
             this.BlitzSettingsTP.Text = "Blitz";
             this.BlitzSettingsTP.UseVisualStyleBackColor = true;
+            // 
+            // SaveSettingsBTN
+            // 
+            this.SaveSettingsBTN.Location = new System.Drawing.Point(6, 81);
+            this.SaveSettingsBTN.Name = "SaveSettingsBTN";
+            this.SaveSettingsBTN.Size = new System.Drawing.Size(320, 23);
+            this.SaveSettingsBTN.TabIndex = 2;
+            this.SaveSettingsBTN.Text = "Save Settings";
+            this.SaveSettingsBTN.UseVisualStyleBackColor = true;
+            this.SaveSettingsBTN.Click += new System.EventHandler(this.SaveSettingsBTN_Click);
             // 
             // BlitzNoUpdateCB
             // 
@@ -213,15 +216,24 @@ namespace Blitz_Patcher
             this.EasyPrivacyCB.Text = "EasyPrivacy";
             this.EasyPrivacyCB.UseVisualStyleBackColor = true;
             // 
-            // SaveSettingsBTN
+            // VersionLB
             // 
-            this.SaveSettingsBTN.Location = new System.Drawing.Point(6, 81);
-            this.SaveSettingsBTN.Name = "SaveSettingsBTN";
-            this.SaveSettingsBTN.Size = new System.Drawing.Size(320, 23);
-            this.SaveSettingsBTN.TabIndex = 2;
-            this.SaveSettingsBTN.Text = "Save Settings";
-            this.SaveSettingsBTN.UseVisualStyleBackColor = true;
-            this.SaveSettingsBTN.Click += new System.EventHandler(this.SaveSettingsBTN_Click);
+            this.VersionLB.AutoSize = true;
+            this.VersionLB.Location = new System.Drawing.Point(315, 167);
+            this.VersionLB.Name = "VersionLB";
+            this.VersionLB.Size = new System.Drawing.Size(19, 13);
+            this.VersionLB.TabIndex = 0;
+            this.VersionLB.Text = "v1";
+            // 
+            // UnpatchButton
+            // 
+            this.UnpatchButton.Location = new System.Drawing.Point(10, 91);
+            this.UnpatchButton.Name = "UnpatchButton";
+            this.UnpatchButton.Size = new System.Drawing.Size(330, 45);
+            this.UnpatchButton.TabIndex = 2;
+            this.UnpatchButton.Text = "Unpatch";
+            this.UnpatchButton.UseVisualStyleBackColor = true;
+            this.UnpatchButton.Click += new System.EventHandler(this.UnpatchButton_Click);
             // 
             // Blitz_Patcher
             // 
@@ -230,6 +242,7 @@ namespace Blitz_Patcher
             this.ClientSize = new System.Drawing.Size(352, 182);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.VersionLB);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Blitz_Patcher";
             this.Text = "Blitz_Patcher";
             this.Load += new System.EventHandler(this.Blitz_Patcher_Load);
@@ -264,5 +277,6 @@ namespace Blitz_Patcher
         private System.Windows.Forms.CheckBox EasyPrivacyCB;
         private System.Windows.Forms.CheckBox PeterLoweCB;
         private System.Windows.Forms.Button SaveSettingsBTN;
+        private System.Windows.Forms.Button UnpatchButton;
     }
 }
