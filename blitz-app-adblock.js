@@ -5,21 +5,24 @@ const path = require('path');
 const io = require('./io');
 const js = require('./js');
 
+var appPath = '';
 var noUpdate = false;
 var autoGuest = false;
-
-var appPath = path.join(process.env.APPDATA, '..\\Local\\Programs\\Blitz\\resources');
 
 async function start() {
     try {
         argumentsHandler();
         
         // mac os app path
-        if (process.platform === "darwin") {
+        if (process.platform === 'darwin') {
             appPath = '\\Applications\\Blitz.app\\Contents\\Resources';
         }
+        // windows app path
+        else if (process.platform === 'win32') {
+            appPath = path.join(process.env.APPDATA, '..\\Local\\Programs\\Blitz\\resources');
+        }
 
-        if(!fs.existsSync(`${appPath}\\app.asar`)) {
+        if(!appPath || !fs.existsSync(`${appPath}\\app.asar`)) {
             console.log("app.asar not found!");
         }
         else {
@@ -58,7 +61,8 @@ async function start() {
             
             console.log('\r\nPatching complete! GLHF :)');
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
     }
 
