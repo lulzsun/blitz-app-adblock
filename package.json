@@ -1,0 +1,22 @@
+{
+  "name": "blitz-app-adblock",
+  "version": "3.0.0",
+  "description": "A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop application.",
+  "main": "blitz-app-adblock.js",
+  "scripts": {
+    "start": "node blitz-app-adblock.js",
+    "build": "pkg blitz-app-adblock.js --out-path .\\build\\ --targets win,macos"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/lulzsun/blitz-app-adblock.git"
+  },
+  "author": "lulzsun",
+  "license": "MIT",
+  "dependencies": {
+    "asar": "^3.0.3"
+  },
+  "devDependencies": {
+    "pkg": "^4.4.9"
+  }
+}
