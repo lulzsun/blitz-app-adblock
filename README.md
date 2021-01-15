@@ -1,4 +1,4 @@
--# Blitz App Adblock
+# Blitz App Adblock
 
 A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop application.
 
