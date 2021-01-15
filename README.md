@@ -1,6 +1,6 @@
 # Blitz App Adblock
 
-A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop application.
+A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop application (supports macOS and Windows).
 
 If Blitz.gg updates, you will need to rerun the program to reapply the patch. 
 
