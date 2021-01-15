@@ -4,7 +4,7 @@ A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop appl
 
 If Blitz.gg updates, you will need to rerun the program to reapply the patch. 
 
-If there are issues even after a clean install, [submit a Github issue](https://github.com/lulzsun/blitz-app-adblock/issues/new) and optionally attach the following log file: 
+If there are issues after an update, [submit a Github issue](https://github.com/lulzsun/blitz-app-adblock/issues/new) and optionally attach the following log file: 
 
 `%appdata%/Blitz/app.log`
 
