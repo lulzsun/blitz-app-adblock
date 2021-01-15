@@ -1,6 +1,6 @@
+const fs = require('fs');
 const asar = require('asar');
 const path = require('path');
-const fs = require('fs');
 
 const io = require('./io');
 const js = require('./js');
@@ -8,30 +8,19 @@ const js = require('./js');
 var noUpdate = false;
 var autoGuest = false;
 
-const appPath = path.join(process.env.APPDATA, '..\\Local\\Programs\\Blitz\\resources');
+var appPath = path.join(process.env.APPDATA, '..\\Local\\Programs\\Blitz\\resources');
 
 async function start() {
     try {
-        var args = process.argv.slice(2);
-        for (var i = 0; i < args.length; i++) {
-            switch (args[i]) {
-            case '-noupdate':
-                noUpdate = true;
-                break;
-            case '-autoguest':
-                autoGuest = true;
-                break;
-            default:
-                console.log(`Unknown argument: '` + args[i] + `'`);
-            }
-        }
+        argumentsHandler();
         
+        // mac os app path
         if (process.platform === "darwin") {
             appPath = '\\Applications\\Blitz.app\\Contents\\Resources';
         }
 
         if(!fs.existsSync(`${appPath}\\app.asar`)) {
-            Console.WriteLine("app.asar not found!");
+            console.log("app.asar not found!");
         }
         else {
             console.log('Extracting app.asar...');
@@ -79,6 +68,22 @@ async function start() {
         .question('Press ENTER to quit...', function(){
             process.exit();
     });
+}
+
+function argumentsHandler() {
+    var args = process.argv.slice(2);
+    for (var i = 0; i < args.length; i++) {
+        switch (args[i]) {
+        case '-noupdate':
+            noUpdate = true;
+            break;
+        case '-autoguest':
+            autoGuest = true;
+            break;
+        default:
+            console.log(`Unknown argument: '` + args[i] + `'`);
+        }
+    }
 }
 
 start();
