@@ -18,7 +18,7 @@ Extract .zip and open `blitz-app-adblock` executable.
 
 ## Install & Build (Developer)
 
-Requires Node 10 or later. 
+Built for Node 14.15.4 (recommended).
 
 ```bash
 $ npm install

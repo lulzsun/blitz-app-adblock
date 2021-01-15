@@ -44,16 +44,12 @@ function modifyFileAtLine(data, filePath, line) {
     file.splice(line-1, 1, data);
     var text = file.join("\n");
 
-    fs.writeFileSync(filePath, text, function (err) {
-        if (err) return console.log(err);
-    });
+    fs.writeFileSync(filePath, text);
     console.log(`${filePath} => Writing to line ${line}: ${data}`);
 }
 
 function copyFile(src, dest) {
-    fs.copyFileSync(src, dest, (err) => {
-        if (err) throw err;
-    });
+    fs.copyFileSync(src, dest);
 }
 
 function deleteFolder(dir_path) {
