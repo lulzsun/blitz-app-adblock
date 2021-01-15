@@ -42,7 +42,7 @@ Using this is against Blitz.gg's terms of services. I am not responsible for wha
 
 [asar - electron archive](https://github.com/electron/asar)
 
-[pgk - single-command Node.js binary compiler](https://github.com/vercel/pkg)
+[pkg - single-command Node.js binary compiler](https://github.com/vercel/pkg)
 
 [Easylist - filters for ads/trackers](https://easylist.to/pages/about.html)
 
