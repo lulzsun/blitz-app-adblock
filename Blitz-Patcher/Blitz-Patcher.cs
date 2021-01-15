@@ -20,7 +20,6 @@ namespace Blitz_Patcher
 
         private void Blitz_Patcher_Load(object sender, EventArgs e)
         {
-            FiltersSettingsTP.Enabled = false; // Not finished yet
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             VersionLB.Text = Application.ProductVersion;
@@ -80,7 +79,6 @@ namespace Blitz_Patcher
                     MessageBox.Show("There seems to be a problem!");
                     return;
                 }
-
                 if (EasyListCB.Checked)
                     new WebClient().DownloadFile("https://easylist.to/easylist/easylist.txt", $"{AppPath}\\app\\src\\easylist.txt");
                 if (EasyPrivacyCB.Checked)
@@ -93,8 +91,6 @@ namespace Blitz_Patcher
                     new WebClient().DownloadFile("https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblock&showintro=1&mimetype=plaintext", $"{AppPath}\\app\\src\\peter-lowe-list.txt");
 
                 var fileToPatch = $"{AppPath}\\app\\src\\createWindow.js";
-                //create a backup file
-                File.Copy(fileToPatch, fileToPatch+".bak");
 
                 // copy adblocker lib to src
                 File.WriteAllBytes($"{AppPath}\\app\\src\\adblocker.umd.min.js", Encoding.UTF8.GetBytes(Resources.adblocker_umd_min));
@@ -116,18 +112,6 @@ namespace Blitz_Patcher
             {
                 MessageBox.Show("app.asar not found!");
             }
-        }
-
-        private void UnpatchButton_Click(object sender, EventArgs e)
-        {
-            if (File.Exists($"{AppPath}\\app\\src\\createWindow.js.bak"))
-            {
-                File.Delete($"{AppPath}\\app\\src\\createWindow.js");
-                File.Move($"{AppPath}\\app\\src\\createWindow.js.bak", $"{AppPath}\\app\\src\\createWindow.js");
-                MessageBox.Show("Blitz.GG Restored");
-            }
-            else
-                MessageBox.Show("Did not find backup file,please reinstall blitz.gg");
         }
     }
 }
