@@ -2,9 +2,11 @@
 
 A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop application.
 
-If Blitz.gg updates, you will most likely need to reinstall Blitz (or else a bootloop occurs) and rerun the program to reapply the patch. 
+If Blitz.gg updates, you will need to rerun the program to reapply the patch. 
 
-If there are issues even after a clean install, [submit a Github issue](https://github.com/lulzsun/blitz-app-adblock/issues/new) and attach the following log file: `%appdata%/Blitz/app.log`.
+If there are issues after an update, [submit a Github issue](https://github.com/lulzsun/blitz-app-adblock/issues/new) and optionally attach the following log file: 
+
+`%appdata%/Blitz/app.log`
 
 You can uninstall the adblocker by uninstalling Blitz.
 
@@ -23,7 +25,7 @@ $ npm install
 $ npm run build
 ```
 
-Builds standalone to `.\build\Release\` using [pgk](https://github.com/vercel/pkg)
+Builds standalone to `.\build\Release\` using [pkg](https://github.com/vercel/pkg)
 
 ## Optional Features
 
@@ -40,7 +42,7 @@ Using this is against Blitz.gg's terms of services. I am not responsible for wha
 
 [asar - electron archive](https://github.com/electron/asar)
 
-[pgk - single-command Node.js binary compiler](https://github.com/vercel/pkg)
+[pkg - single-command Node.js binary compiler](https://github.com/vercel/pkg)
 
 [Easylist - filters for ads/trackers](https://easylist.to/pages/about.html)
 
