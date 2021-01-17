@@ -25,7 +25,7 @@ $ npm install
 $ npm run build
 ```
 
-Builds standalone to `.\build\Release\` using [pkg](https://github.com/vercel/pkg)
+Builds standalone to `.\build\` using [pkg](https://github.com/vercel/pkg)
 
 ## Optional Features
 
