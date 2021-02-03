@@ -48,8 +48,8 @@ async function start() {
             io.modifyFileAtLine('session: true,', `${appPath}/app/src/createWindow.js`, 106);
     
             // optional features
-            if (noUpdate)  io.ModifyFileAtLine('if (false) {', `${appPath}/app/src/index.js`, 267);
-            if (autoGuest) io.ModifyFileAtLine(js.autoGuest, `${appPath}/app/src/preload.js`, 18);
+            if (noUpdate)  io.modifyFileAtLine('if (false) {', `${appPath}/app/src/index.js`, 267);
+            if (autoGuest) io.modifyFileAtLine(js.autoGuest, `${appPath}/app/src/preload.js`, 18);
     
             // repack
             console.log('Repacking app.asar...');
