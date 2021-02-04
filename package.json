@@ -17,7 +17,8 @@
   "author": "lulzsun",
   "license": "MIT",
   "dependencies": {
-    "asar": "^3.0.3"
+    "asar": "^3.0.3",
+    "ps4js": "^1.0.2"
   },
   "devDependencies": {
     "pkg": "^4.4.9"

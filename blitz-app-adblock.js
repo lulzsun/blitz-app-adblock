@@ -1,4 +1,5 @@
 const fs = require('fs');
+const ps = require('ps4js');
 const asar = require('asar');
 const path = require('path');
 
@@ -12,6 +13,7 @@ var autoGuest = false;
 async function start() {
     try {
         argumentsHandler();
+        await killBlitz();
         
         // mac os app path
         if (process.platform === 'darwin') {
@@ -27,7 +29,7 @@ async function start() {
         }
         else {
             console.log('Extracting app.asar...');
-            await asar.extractAll(`${appPath}/app.asar`, `${appPath}/app/`);
+            asar.extractAll(`${appPath}/app.asar`, `${appPath}/app/`);
         
             console.log('Downloading ad & tracking filters...');
             await io.downloadFile('https://easylist.to/easylist/easylist.txt', `${appPath}/app/src/easylist.txt`);
@@ -71,6 +73,31 @@ async function start() {
         .createInterface(process.stdin, process.stdout)
         .question('Press ENTER to quit...', function(){
             process.exit();
+    });
+}
+
+function killBlitz() {
+    return new Promise(resolve => {
+        var pid;
+
+        ps.list(function(err, results) {
+            if (err)
+                throw new Error( err );
+
+            results.forEach(process => {
+                if(process.command.startsWith('Blitz')) {
+                    if(!pid)
+                        console.log('Closing out Blitz...');
+                    pid = process.pid;
+
+                    ps.kill(pid, function(err, stdout) {
+                        if (err)
+                            throw new Error(err);
+                    });
+                }
+            });
+            resolve();
+        });
     });
 }
 
