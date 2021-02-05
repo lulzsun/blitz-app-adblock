@@ -77,6 +77,7 @@ async function start() {
 }
 
 function killBlitz() {
+    console.log('Checking for Blitz...');
     return new Promise(resolve => {
         var pid;
 

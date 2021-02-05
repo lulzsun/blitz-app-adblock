@@ -4,9 +4,7 @@ A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop appl
 
 If Blitz.gg updates, you will need to rerun the program to reapply the patch. 
 
-If there are issues after an update, [submit a Github issue](https://github.com/lulzsun/blitz-app-adblock/issues/new) and optionally attach the following log file: 
-
-`%appdata%\Blitz\app.log`
+If there are issues after an update, [submit a Github issue](https://github.com/lulzsun/blitz-app-adblock/issues/new) and attach useful information such as error messages.
 
 You can uninstall the adblocker by uninstalling Blitz.
 
@@ -25,7 +23,7 @@ $ npm install
 $ npm run build
 ```
 
-Builds standalone to `.\build\` using [pkg](https://github.com/vercel/pkg)
+Builds standalone to `.\build\` using [pkg](https://github.com/vercel/pkg).
 
 ## Optional Features
 
