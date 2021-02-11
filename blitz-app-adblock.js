@@ -46,11 +46,11 @@ async function start() {
             else io.copyFile('./build/adblocker.umd.min.js', `${appPath}/app/src/adblocker.umd.min.js`)
     
             // start writing our payload to createWindow.js
-            io.modifyFileAtLine(js.filterEngine, `${appPath}/app/src/createWindow.js`, 119);
-            io.modifyFileAtLine('session: true,', `${appPath}/app/src/createWindow.js`, 106);
+            io.modifyFileAtLine(js.filterEngine, `${appPath}/app/src/createWindow.js`, 120);
+            io.modifyFileAtLine('session: true,', `${appPath}/app/src/createWindow.js`, 107);
     
             // optional features
-            if (noUpdate)  io.modifyFileAtLine('if (false) {', `${appPath}/app/src/index.js`, 267);
+            if (noUpdate)  io.modifyFileAtLine('', `${appPath}/app/src/autoUpdater/index.js`, 46);
             if (autoGuest) io.modifyFileAtLine(js.autoGuest, `${appPath}/app/src/preload.js`, 18);
     
             // repack
