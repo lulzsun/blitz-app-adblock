@@ -3,7 +3,7 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 
-async function downloadFile(url, filePath) {
+async function downloadFile(url, filePath) {    
     const proto = !url.charAt(4).localeCompare('s') ? https : http;
 
     return new Promise((resolve, reject) => {
@@ -39,11 +39,18 @@ async function downloadFile(url, filePath) {
     });
 }
 
-function modifyFileAtLine(data, filePath, line) {
+function modifyFileAtLine(data, filePath, line, compare=-1) {
     var file = fs.readFileSync(filePath).toString().split("\n");
-    file.splice(line-1, 1, data);
-    var text = file.join("\n");
 
+    if(compare != -1) {
+        if(!(data === file[line-1]) && !(compare === file[line-1])) {
+            throw new Error('Current Blitz version caused patch comparison check to fail. Look for a new patcher release or create a new issue on Github!\n');
+        }
+    }
+
+    file.splice(line-1, 1, data);
+    var text = file.join('\n');
+    
     fs.writeFileSync(filePath, text);
     console.log(`${filePath} => Writing to line ${line}: ${data}`);
 }
