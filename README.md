@@ -14,6 +14,8 @@ Download latest release [here](https://github.com/lulzsun/blitz-app-adblock/rele
 
 Extract .zip and open `blitz-app-adblock` executable.
 
+If issues occur, try to run executable as administrator.
+
 ## Install & Build (Developer)
 
 Built for Node 14.15.4 (recommended).
