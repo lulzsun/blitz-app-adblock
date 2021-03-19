@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const ps = require('ps4js');
 const asar = require('asar');
 const path = require('path');
@@ -17,7 +18,7 @@ async function start() {
         
         // mac os app path
         if (process.platform === 'darwin') {
-            var dir = '~/Applications/Blitz.app/Contents/Resources';
+            var dir = os.homedir() + '/Applications/Blitz.app/Contents/Resources';
             if(fs.existsSync(dir)) {
                 appPath = dir
             }
