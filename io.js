@@ -44,7 +44,13 @@ function modifyFileAtLine(data, filePath, line, compare=-1) {
 
     if(compare != -1) {
         if(!(data === file[line-1]) && !(compare === file[line-1])) {
-            throw new Error('Current Blitz version caused patch comparison check to fail. Look for a new patcher release or create a new issue on Github!\n');
+            throw new Error(
+                `Current Blitz version caused patch comparison check to fail. Look for a new patcher release or create a new issue on Github!
+                \n\n
+                Finding:\n
+                \t'${file[line-1]}'\n
+                Instead of:
+                \t'${compare}'`);
         }
     }
 
