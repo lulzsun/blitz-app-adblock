@@ -9,7 +9,7 @@ If there are issues after an update, [submit a Github issue](https://github.com/
 You can uninstall the adblocker by uninstalling Blitz.
 
 ## Install
-Download latest release [here](https://github.com/lulzsun/blitz-app-adblock/releases/latest).
+Download latest release [here](https://github.com/lulzsun/blitz-app-adblock/releases/latest). Make sure to have the Blitz app completely closed before beginning.
 
 ### Windows
 1. Extract .zip
