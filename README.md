@@ -13,15 +13,15 @@ Download latest release [here](https://github.com/lulzsun/blitz-app-adblock/rele
 
 ### Windows
 1. Extract .zip
-2. Run `blitz-app-adblock.exe`.
+2. Run `blitz-app-adblock.exe`
 
-If issues occur, try to run executable as administrator
+If issues occur, try to run executable as administrator.
 
 ### Mac
 1. Extract .zip
 2. Open terminal and enter the following commands
 ```bash
-$ cd <insert directory of blitz-app-adblock-mac>
+$ cd "insert directory of blitz-app-adblock-mac"
 $ chdome +x blitz-app-adblock-mac
 $ ./blitz-app-adblock-mac
 ```
