@@ -22,7 +22,7 @@ If issues occur, try to run executable as administrator.
 2. Open terminal and enter the following commands
 ```bash
 $ cd "insert directory of blitz-app-adblock-mac"
-$ chdome +x blitz-app-adblock-mac
+$ chmod +x blitz-app-adblock-mac
 $ ./blitz-app-adblock-mac
 ```
 
