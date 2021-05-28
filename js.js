@@ -1,5 +1,7 @@
 var filterEngine = 
-`try {
+`
+function interceptRequests(windowInstance) {
+try {
     const fs = require('fs');
     const { FiltersEngine, Request } = require('./adblocker.umd.min.js');
     const filters =
