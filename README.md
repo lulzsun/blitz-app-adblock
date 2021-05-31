@@ -38,7 +38,7 @@ $ npm run build
 ### Windows
 ```bash
 $ cd build
-$ ./blitz-app-adblock-win
+$ ./blitz-app-adblock-win.exe
 ```
 
 ### Mac
