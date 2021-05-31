@@ -21,9 +21,9 @@ If issues occur, try to run executable as administrator.
 1. Extract .zip
 2. Open terminal and enter the following commands
 ```bash
-$ cd "insert directory of blitz-app-adblock-mac"
-$ chmod +x blitz-app-adblock-mac
-$ ./blitz-app-adblock-mac
+$ cd "insert directory of blitz-app-adblock-macos"
+$ chmod +x blitz-app-adblock-macos
+$ ./blitz-app-adblock-macos
 ```
 
 ## Install & Build (Developer)
@@ -35,7 +35,20 @@ $ npm install
 $ npm run build
 ```
 
-Builds standalone to `.\build\` using [pkg](https://github.com/vercel/pkg).
+### Windows
+```bash
+$ cd build
+$ ./blitz-app-adblock-win
+```
+
+### Mac
+```bash
+$ cd build
+$ chmod +x blitz-app-adblock-macos
+$ ./blitz-app-adblock-macos
+```
+
+Builds standalone to `./build/` using [pkg](https://github.com/vercel/pkg).
 
 ## Optional Features
 
