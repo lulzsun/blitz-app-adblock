@@ -44,7 +44,7 @@ function modifyFileAfterContext (data, filePath, context) {
 
   let line = -1
 
-  for (const i = 0; i < file.length; i++) {
+  for (let i = 0; i < file.length; i++) {
     const lineString = file[i]
 
     if (context.trim() === lineString.trim()) {
@@ -108,6 +108,7 @@ function deleteFolder(dir_path) {
 
 module.exports = {
     downloadFile: downloadFile,
+    modifyFileAfterContext: modifyFileAfterContext,
     modifyFileAtLine: modifyFileAtLine,
     copyFile: copyFile,
     deleteFolder: deleteFolder,
