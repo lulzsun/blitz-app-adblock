@@ -36,9 +36,13 @@ async function start() {
 
         // mac os app path
         if (process.platform === 'darwin') {
-            let dir = '/Applications/Blitz.app/Contents/Resources';
-            let homedir = os.homedir() + dir;
-            appPath = fs.existsSync(homedir) ? homedir : dir
+            var dir = os.homedir() + '/Applications/Blitz.app/Contents/Resources';
+            if(fs.existsSync(dir)) {
+                appPath = dir
+            }
+            else {
+                appPath = '/Applications/Blitz.app/Contents/Resources';
+            }
         }
         // windows app path
         else if (process.platform === 'win32') {
