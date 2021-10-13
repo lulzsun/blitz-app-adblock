@@ -1,52 +1,78 @@
+const fs = require('fs');
+const os = require('os');
+const ps = require('ps4js');
 const asar = require('asar');
 const path = require('path');
-const fs = require('fs');
 
 const io = require('./io');
 const js = require('./js');
 
+var appPath = '';
 var noUpdate = false;
 var autoGuest = false;
 
-const appPath = path.join(process.env.APPDATA, '..\\Local\\Programs\\Blitz\\resources');
- 
 async function start() {
     try {
-        if(!fs.existsSync(`${appPath}\\app.asar`)) {
-            Console.WriteLine("app.asar not found!");
+        argumentsHandler();
+        await killBlitz();
+        
+        // mac os app path
+        if (process.platform === 'darwin') {
+            var dir = os.homedir() + '/Applications/Blitz.app/Contents/Resources';
+            if(fs.existsSync(dir)) {
+                appPath = dir
+            }
+            else {
+                appPath = '/Applications/Blitz.app/Contents/Resources';
+            }
+        }
+        // windows app path
+        else if (process.platform === 'win32') {
+            appPath = path.join(process.env.APPDATA, '../Local/Programs/Blitz/resources');
+        }
+
+        if(!appPath || !fs.existsSync(`${appPath}/app.asar`)) {
+            console.log("app.asar not found!");
         }
         else {
             console.log('Extracting app.asar...');
-            await asar.extractAll(`${appPath}\\app.asar`, `${appPath}\\app\\`);
+            asar.extractAll(`${appPath}/app.asar`, `${appPath}/app/`);
         
             console.log('Downloading ad & tracking filters...');
-            await io.downloadFile('https://easylist.to/easylist/easylist.txt', `${appPath}\\app\\src\\easylist.txt`);
-            await io.downloadFile('https://easylist.to/easylist/easyprivacy.txt', `${appPath}\\app\\src\\easyprivacy.txt`);
-            await io.downloadFile('https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt', `${appPath}\\app\\src\\ublock-ads.txt`);
-            await io.downloadFile('https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt', `${appPath}\\app\\src\\ublock-privacy.txt`);
-            await io.downloadFile('https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblock&showintro=1&mimetype=plaintext', `${appPath}\\app\\src\\peter-lowe-list.txt`);
+            await io.downloadFile('https://easylist.to/easylist/easylist.txt', `${appPath}/app/src/easylist.txt`);
+            await io.downloadFile('https://easylist.to/easylist/easyprivacy.txt', `${appPath}/app/src/easyprivacy.txt`);
+            await io.downloadFile('https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt', `${appPath}/app/src/ublock-ads.txt`);
+            await io.downloadFile('https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt', `${appPath}/app/src/ublock-privacy.txt`);
+            await io.downloadFile('https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblock&showintro=1&mimetype=plaintext', `${appPath}/app/src/peter-lowe-list.txt`);
         
             console.log('Patching...');
     
             // copy adblocker lib to src
-            io.copyFile('adblocker.umd.min.js', `${appPath}\\app\\src\\adblocker.umd.min.js`)
+            if(fs.existsSync(`adblocker.umd.min.js`)) 
+                io.copyFile('adblocker.umd.min.js', `${appPath}/app/src/adblocker.umd.min.js`)
+            else io.copyFile('./build/adblocker.umd.min.js', `${appPath}/app/src/adblocker.umd.min.js`)
     
             // start writing our payload to createWindow.js
-            io.modifyFileAtLine(js.filterEngine, `${appPath}\\app\\src\\createWindow.js`, 119);
-            io.modifyFileAtLine('session: true,', `${appPath}\\app\\src\\createWindow.js`, 106);
+            io.modifyFileAfterContext(js.filterEngine, `${appPath}/app/src/createWindow.js`, 'function interceptRequests(windowInstance) {');
+            io.modifyFileAfterContext('session: true,', `${appPath}/app/src/createWindow.js`, 'webPreferences: {');
     
             // optional features
-            if (noUpdate)  IO.ModifyFileAtLine('if (false) {', `${appPath}\\app\\src\\index.js`, 267);
-            if (autoGuest) IO.ModifyFileAtLine(js.autoGuest, `${appPath}\\app\\src\\preload.js`, 18);
+            if (noUpdate)  io.modifyFileAtLine('', `${appPath}/app/src/autoUpdater/index.js`, 46);
+            if (autoGuest) io.modifyFileAtLine(js.autoGuest, `${appPath}/app/src/preload.js`, 18);
     
-            // repack & cleanup
+            // repack
             console.log('Repacking app.asar...');
-            await asar.createPackage(`${appPath}\\app\\`, `${appPath}\\app.asar`);
-            io.deleteFolder(`${appPath}\\app\\`);
+            await asar.createPackage(`${appPath}/app/`, `${appPath}/app.asar`);
+
+            // cleanup
+            console.log('Cleaning up directory...');
+            io.deleteFolder(`${appPath}/app/`);
             
             console.log('\r\nPatching complete! GLHF :)');
         }
-    } catch (error) {
+    }
+    catch (error) {
+        console.log('\n');
         console.log(error);
     }
 
@@ -56,6 +82,48 @@ async function start() {
         .question('Press ENTER to quit...', function(){
             process.exit();
     });
+}
+
+function killBlitz() {
+    console.log('Checking for Blitz...');
+    return new Promise(resolve => {
+        var pid;
+
+        ps.list(function(err, results) {
+            if (err)
+                throw new Error( err );
+
+            results.forEach(process => {
+                if(process.command.startsWith('Blitz')) {
+                    if(!pid)
+                        console.log('Closing out Blitz...');
+                    pid = process.pid;
+
+                    ps.kill(pid, function(err, stdout) {
+                        if (err)
+                            throw new Error(err);
+                    });
+                }
+            });
+            resolve();
+        });
+    });
+}
+
+function argumentsHandler() {
+    var args = process.argv.slice(2);
+    for (var i = 0; i < args.length; i++) {
+        switch (args[i]) {
+        case '-noupdate':
+            noUpdate = true;
+            break;
+        case '-autoguest':
+            autoGuest = true;
+            break;
+        default:
+            console.log(`Unknown argument: '` + args[i] + `'`);
+        }
+    }
 }
 
 start();
