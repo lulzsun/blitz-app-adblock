@@ -53,7 +53,7 @@ async function start() {
             else io.copyFile('./build/adblocker.umd.min.js', `${appPath}/app/src/adblocker.umd.min.js`)
     
             // start writing our payload to createWindow.js
-            io.modifyFileAfterContext(js.filterEngine, `${appPath}/app/src/createWindow.js`, 'function interceptRequests(windowInstance) {');
+            io.modifyFileAfterContext(js.filterEngine, `${appPath}/app/src/createWindow.js`, 'function interceptRequests() {');
             io.modifyFileAfterContext('session: true,', `${appPath}/app/src/createWindow.js`, 'webPreferences: {');
     
             // optional features
