@@ -11,7 +11,7 @@ try {
         fs.readFileSync(require.resolve('./peter-lowe-list.txt'), 'utf-8') + '\\ngoogleoptimize.com\\n';
     const engine = FiltersEngine.parse(filters);
 
-    windowInstance.webContents.session.webRequest.onBeforeRequest({ urls: ['*://*/*'] }, (details, callback) => {
+    windows.client.webContents.session.webRequest.onBeforeRequest({ urls: ['*://*/*'] }, (details, callback) => {
         const {match} = engine.match(Request.fromRawDetails({ url: details.url }));
         if (match == true) {
             log.info('BLOCKED:', details.url);
