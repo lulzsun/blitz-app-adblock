@@ -1,3 +1,6 @@
+# NOT WORKING / BEING MAINTAINED
+This project has stopped working since issue [#56](https://github.com/lulzsun/blitz-app-adblock/issues/56), please stop creating duplicate issues. Repository is being left open for the possibility of a future maintainer or contributor.
+
 # Blitz App Adblock
 
 A simple and quick patcher that blocks ads/trackers on the Blitz.gg desktop application (supports Mac and Windows).
